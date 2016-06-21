@@ -9,7 +9,7 @@ def F(field, verbose_name, values_list):
   return dict(field=field, verbose_name=verbose_name, values_list=values_list)
 
 
-class FilteredSingleTableView(SingleTableView):
+class FilteredSingleTableMixin(object):
   """
   Add filtering options to SingleTableView. Define list of filters in the Table
   subclass (not in Table.Meta). Likely not secure.
@@ -35,7 +35,7 @@ class FilteredSingleTableView(SingleTableView):
   """
 
   def get_queryset(self):
-    q = super(FilteredSingleTableView, self).get_queryset()
+    q = super(FilteredSingleTableMixin, self).get_queryset()
     if hasattr(self.table_class, 'filters'):
       h = {}
       for f in self.table_class.filters:
@@ -46,7 +46,7 @@ class FilteredSingleTableView(SingleTableView):
     return q
 
   def get_context_data(self, **kwargs):
-    c = super(FilteredSingleTableView, self).get_context_data(**kwargs)
+    c = super(FilteredSingleTableMixin, self).get_context_data(**kwargs)
     if hasattr(self.table_class, 'filters'):
       h = []
       for f in self.table_class.filters:
@@ -72,3 +72,6 @@ class FilteredSingleTableView(SingleTableView):
       c['filters']['base_params'] = base_param_values
     return c 
 
+
+class FilteredSingleTableView(FilteredSingleTableMixin, SingleTableView):
+    pass

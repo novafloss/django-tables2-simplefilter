@@ -1,3 +1,3 @@
 
-from .views import FilteredSingleTableView, F
+from .views import FilteredSingleTableView, FilteredSingleTableMixin, F
 
