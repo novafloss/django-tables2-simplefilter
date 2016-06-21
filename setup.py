@@ -9,7 +9,7 @@ except ImportError:
 
 setup(
     name='django-tables2-simplefilter',
-    version='0.1',
+    version='0.1+1',
     description='Simple filters for django-tables2',
     author='Benjie Chen',
     author_email='benjie@alum.mit.edu',
